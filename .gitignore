@@ -1,0 +1,14 @@
+# Derleme çıktıları
+build/
+*.exe
+*.o
+*.obj
+2048
+test_board
+
+# Oyunun kaydettiği rekor dosyası
+2048_rekor.txt
+
+# Editör ayarları
+.vscode/
+.idea/
