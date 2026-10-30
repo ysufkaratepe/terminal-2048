@@ -2,42 +2,44 @@
 
 ![build](https://github.com/ysufkaratepe/terminal-2048/actions/workflows/build.yml/badge.svg)
 
-Klasik **2048** bulmaca oyununun terminalde oynanan, renkli bir C++ sürümü. Windows, Linux ve macOS'ta çalışır.
+A colorful version of the classic **2048** puzzle game that runs in the terminal, written in C++17. Works on Windows, Linux and macOS.
 
 <p align="center">
-  <img src="docs/screenshot.svg" alt="Oyun ekranı" width="440">
+  <img src="docs/screenshot.svg" alt="Game screen" width="440">
 </p>
 
-## Özellikler
+> The in-game text is in Turkish.
 
-- Renkli taşlar ve çerçeveli oyun tahtası
-- Ok tuşları veya WASD ile kontrol (Enter'a basmaya gerek yok)
-- Son hamleyi geri alma
-- Rekor skorun dosyaya kaydedilmesi
-- Oyun kurallarını kontrol eden birim testleri
-- GitHub Actions ile her yüklemede Windows, Linux ve macOS'ta otomatik derleme ve test
+## Features
 
-## Nasıl oynanır?
+- Colored tiles and a framed game board
+- Arrow keys or WASD controls (no need to press Enter)
+- Undo the last move
+- High score saved to a file
+- Unit tests for the game rules
+- Automated build and tests on Windows, Linux and macOS with GitHub Actions
 
-Taşları kaydırarak aynı sayıları birleştir ve **2048** taşına ulaşmaya çalış. Her hamleden sonra boş bir yere yeni bir taş (2 veya 4) gelir. Hamle kalmadığında oyun biter.
+## How to play
 
-| Tuş | İşlev |
+Slide the tiles to merge equal numbers and try to reach the **2048** tile. After every move a new tile (2 or 4) appears in an empty cell. The game ends when no moves are left.
+
+| Key | Action |
 | --- | --- |
-| Ok tuşları / W A S D | Taşları kaydır |
-| U | Son hamleyi geri al |
-| R | Yeni oyun başlat |
-| Q | Çıkış |
+| Arrow keys / W A S D | Slide tiles |
+| U | Undo last move |
+| R | Start a new game |
+| Q | Quit |
 
-## Derleme ve çalıştırma
+## Build and run
 
-**g++ ile** (Windows'ta MinGW, Linux veya macOS):
+**With g++** (MinGW on Windows, Linux or macOS):
 
 ```bash
 g++ -std=c++17 -Iinclude src/*.cpp -o 2048
 ./2048
 ```
 
-**CMake ile:**
+**With CMake:**
 
 ```bash
 cmake -B build
@@ -45,34 +47,34 @@ cmake --build build
 ./build/2048          # Windows: build\Debug\2048.exe
 ```
 
-Testleri çalıştırmak için:
+Run the tests:
 
 ```bash
 ctest --test-dir build --output-on-failure
 ```
 
-> Windows'ta renkler için Windows Terminal veya Windows 10/11'in yeni konsolu önerilir.
+> On Windows, Windows Terminal or the new Windows 10/11 console is recommended for colors.
 
-## Proje yapısı
+## Project structure
 
 ```
 include/
-  Board.hpp       Oyun kuralları (kaydırma, birleştirme, kazanma/kaybetme)
-  Game.hpp        Oyun döngüsü, ekran çizimi, rekor kaydı
-  Terminal.hpp    Windows ve Linux/macOS terminal farklarını gizleyen katman
+  Board.hpp       Game rules (sliding, merging, win/lose)
+  Game.hpp        Game loop, rendering, high score
+  Terminal.hpp    Hides the differences between Windows and Linux/macOS terminals
 src/
   Board.cpp, Game.cpp, Terminal.cpp, main.cpp
 tests/
-  test_board.cpp  Oyun kuralları için birim testleri
+  test_board.cpp  Unit tests for the game rules
 ```
 
-Oyun mantığı (`Board`) ekran ve klavyeden tamamen ayrıdır. Bu sayede kurallar terminal olmadan test edilebilir.
+The game logic (`Board`) is completely separated from the screen and keyboard, so the rules can be tested without a terminal.
 
-## Nasıl çalışıyor?
+## How it works
 
-Dört yönün hepsi aynı fonksiyonla çözülür: her satır veya sütun, kayma yönüne göre okunup "sola kaydırma" problemine çevrilir. `slideRow` boşlukları atlayarak taşları sola toplar. Her taş bir hamlede en fazla bir kez birleşir, bu yüzden `[2, 2, 2, 2]` satırı `[4, 4, 0, 0]` olur, `[8, 0, 0, 0]` olmaz.
+All four directions are handled by the same function: each row or column is read in the direction of the move and turned into a "slide left" problem. `slideRow` packs the tiles to the left, skipping empty cells. Each tile can merge at most once per move, so the row `[2, 2, 2, 2]` becomes `[4, 4, 0, 0]`, not `[8, 0, 0, 0]`.
 
-## Geliştirici
+## Author
 
-**Yusuf Karatepe**, Bilgisayar Mühendisliği öğrencisi
+**Yusuf Karatepe**, Computer Engineering student
 [LinkedIn](https://www.linkedin.com/in/yusuf-karatepe-0720923a1/) · [GitHub](https://github.com/ysufkaratepe)
